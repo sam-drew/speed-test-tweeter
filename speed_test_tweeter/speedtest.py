@@ -8,9 +8,9 @@ def getSpeed(x):
 
     # Split the returned data into it's constituents.
     speed = speed.split("\n")
-    pingSpeed = speed[0]
-    downSpeed = speed[1]
-    upSpeed = speed[2]
+    pingSpeed = float(speed[0][6:11])
+    downSpeed = float(speed[1][10:15])
+    upSpeed = float(speed[2][8:12])
 
     return(pingSpeed, downSpeed, upSpeed)
 
