@@ -12,7 +12,7 @@ def getSpeed(x):
     downSpeed = float(speed[1][10:15])
     upSpeed = float(speed[2][8:12])
 
-    return(pingSpeed, downSpeed, upSpeed)
+    return[pingSpeed, downSpeed, upSpeed]
 
     # Allow user to select which speed they would like returned, or all of them.
     # Acceptable arguments are: "all", "down", "up", or "ping".
