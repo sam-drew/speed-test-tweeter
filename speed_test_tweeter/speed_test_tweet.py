@@ -17,14 +17,19 @@ def testTweet(tweetThresh, speed):
 
 if __name__ == "__main__":
     dateTime = datetime.datetime.fromtimestamp(time.time()).strftime("%Y-%m-%d %H:%M:%S")
+
+    # Get the path for the speedtest_cli.py file.
+    speedtestPath = input("Enter the root path of your speedtest_cli.py file: ")
+
     # Ask if log should be written.
     log = False
     writeToLog = input("Do you want to log each test's data to file? (y/n) ")
     if writeToLog == "y":
         log = True
-        fileName = (str(("Speedtest log", dateTime + ".txt")))
+        fileName = (str(("Speedtest log", dateTime )))
     else:
         log = False
+
     # Get all keys/secrets.
     accessToken = input("Enter the accessToken: ")
     accessTokenSecret = input("Enter the accessTokenSecret: ")
@@ -42,13 +47,14 @@ if __name__ == "__main__":
     while True:
         currentDateTime = datetime.datetime.fromtimestamp(time.time()).strftime("%Y-%m-%d %H:%M:%S")
         # Get speed data.
-        speed = getSpeed("all")
+        speed = getSpeed("all", speedtestPath)
         # Run speedtest and tweet function.
         testTweet(tweetThresh, speed)
         print("Test number", counter)
         counter += 1
         # Log test data to file.
         if log == True:
-            writeLog(fileName, (str((currentDateTime + "\n" + speed + "\n"))))
+            writeLog(fileName, (str((currentDateTime + "\n" + (str(speed)) + "\n"))))
+            print("Log successful.")
         # Wait 15 minutes before testing again.
         time.sleep(900)

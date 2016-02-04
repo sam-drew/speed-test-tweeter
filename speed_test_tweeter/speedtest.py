@@ -1,8 +1,6 @@
 import os
 
-def getSpeed(x):
-    # Get speedtest-cli path from user.
-    speedtestPath = input("Enter the root path of your speedtest_cli.py file: ")
+def getSpeed(x, speedtestPath):
     # Run the speed test
     speed = os.popen((str("python3 " + speedtestPath + " --simple"))).read()
 
@@ -28,4 +26,4 @@ def getSpeed(x):
         return("Argument not accepted")
 
 if __name__ == "__main__":
-    print(getSpeed(input("Enter the argument for getSpeed(): ")))
+    print(getSpeed(input("Enter the arguments for getSpeed(): ")))

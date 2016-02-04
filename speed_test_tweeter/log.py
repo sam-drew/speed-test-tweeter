@@ -1,4 +1,4 @@
 def writeLog(fileName, data):
-    f = open(fileName, "a")
-    f.write((str((data + "\n"))
-    f.close
+    f = open((str(fileName + ".txt")), "a")
+    f.write((str((data + "\n"))))
+    f.close()
