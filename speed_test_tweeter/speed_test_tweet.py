@@ -1,8 +1,10 @@
+import time
+import datetime
 from speedtest import *
 from tweet import *
-import time
+from log import *
 
-def testTweet(tweetThresh):
+def testTweet(tweetThresh, speed):
     if speed[1] < tweetThresh:
         print(speed[1])
         tweet = ("Hey, @virginmedia, why is my internet speed " + str(speed[1]) + "mb/s, when I pay for 50mb/s??")
@@ -14,6 +16,15 @@ def testTweet(tweetThresh):
         print("Something has gone wrong, sorry.")
 
 if __name__ == "__main__":
+    dateTime = datetime.datetime.fromtimestamp(time.time()).strftime("%Y-%m-%d %H:%M:%S")
+    # Ask if log should be written.
+    log = False
+    writeToLog = input("Do you want to log each test's data to file? (y/n) ")
+    if writeToLog == "y":
+        log = True
+        fileName = (str(("Speedtest log", dateTime + ".txt")))
+    else:
+        log = False
     # Get all keys/secrets.
     accessToken = input("Enter the accessToken: ")
     accessTokenSecret = input("Enter the accessTokenSecret: ")
@@ -26,13 +37,18 @@ if __name__ == "__main__":
         tweetThresh = input("Enter the speed threshold at which to tweet (just the number): ")
     tweetThresh = float(tweetThresh)
 
-    # Get internet speed data, and set loop counter.
-    speed = getSpeed("all")
     counter = 1
 
     while True:
-        testTweet(tweetThresh)
-        print(counter)
+        currentDateTime = datetime.datetime.fromtimestamp(time.time()).strftime("%Y-%m-%d %H:%M:%S")
+        # Get speed data.
+        speed = getSpeed("all")
+        # Run speedtest and tweet function.
+        testTweet(tweetThresh, speed)
+        print("Test number", counter)
         counter += 1
+        # Log test data to file.
+        if log == True:
+            writeLog(fileName, (str((currentDateTime + "\n" + speed + "\n"))))
         # Wait 15 minutes before testing again.
         time.sleep(900)
