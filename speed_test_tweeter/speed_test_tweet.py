@@ -4,10 +4,11 @@ from speedtest import *
 from tweet import *
 from log import *
 
-def testTweet(tweetThresh, speed):
+def testTweet(tweetThresh, speed, tweet):
     if speed[1] < tweetThresh:
         print(speed[1])
-        tweet = ("Hey, @virginmedia, why is my internet speed " + str(speed[1]) + "mb/s, when I pay for 50mb/s??")
+        tweet = tweet.format(speed[1])
+        print(tweet)
         writeTweet(accessToken, accessTokenSecret, consumerSecret, consumerKey, tweet)
         print("Tweet complete!")
     elif speed[1] >= tweetThresh:
@@ -47,15 +48,22 @@ if __name__ == "__main__":
     while wait.isdigit() == False:
         wait = input("Enter the time to wait (a number, in seconds) betweeen speed test attempts: ")
     wait = int(wait)
-    
+
+    # Get the user's personalised tweet for their ISP.
+    tweet = input("Enter the message you would like to tweet to your ISP.\nBe sure to include their twitter handle, and even more importantly, the symbols '{}' where you\nwould like your down speed to be substituted: ")
+    while len(tweet) > 140:
+        tweet = input("Enter the message you would like to tweet to your ISP.\nBe sure to include their twitter handle, and even more importantly, the symbols '{}' where you\nwould like your down speed to be substituted: ")
+        while "{}" not in tweet:
+            tweet = input("Enter the message you would like to tweet to your ISP.\nBe sure to include their twitter handle, and even more importantly, the symbols '{}' where you\nwould like your down speed to be substituted: ")
+
     counter = 1
 
     while True:
         currentDateTime = datetime.datetime.fromtimestamp(time.time()).strftime("%Y-%m-%d %H:%M:%S")
         # Get speed data.
-        speed = getSpeed("all", speedtestPath)
+        speed = getSpeed("all", speedtestPath,)
         # Run speedtest and tweet function.
-        testTweet(tweetThresh, speed)
+        testTweet(tweetThresh, speed, tweet)
         print("Test number", counter)
         counter += 1
         # Log test data to file.
