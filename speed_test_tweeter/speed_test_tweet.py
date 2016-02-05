@@ -42,6 +42,12 @@ if __name__ == "__main__":
         tweetThresh = input("Enter the speed threshold at which to tweet (just the number): ")
     tweetThresh = float(tweetThresh)
 
+    # Get the wait time between speed test attempts.
+    wait = input("Enter the time to wait (a number, in seconds) betweeen speed test attempts: ")
+    while wait.isdigit() == False:
+        wait = input("Enter the time to wait (a number, in seconds) betweeen speed test attempts: ")
+    wait = int(wait)
+    
     counter = 1
 
     while True:
@@ -57,4 +63,4 @@ if __name__ == "__main__":
             writeLog(fileName, (str((currentDateTime + "\n" + (str(speed)) + "\n"))))
             print("Log successful.")
         # Wait 15 minutes before testing again.
-        time.sleep(900)
+        time.sleep(wait)
