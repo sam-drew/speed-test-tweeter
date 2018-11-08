@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     # Get the user's personalised tweet for their ISP.
     tweet = input("Enter the message you would like to tweet to your ISP.\nBe sure to include their twitter handle, and even more importantly, the symbols '{}' where you\nwould like your down speed to be substituted: ")
-    while len(tweet) > 140:
+    while len(tweet) > 280:
         tweet = input("Enter the message you would like to tweet to your ISP.\nBe sure to include their twitter handle, and even more importantly, the symbols '{}' where you\nwould like your down speed to be substituted: ")
         while "{}" not in tweet:
             tweet = input("Enter the message you would like to tweet to your ISP.\nBe sure to include their twitter handle, and even more importantly, the symbols '{}' where you\nwould like your down speed to be substituted: ")
